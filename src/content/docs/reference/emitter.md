@@ -1,0 +1,5 @@
+---
+title: '@metrics/emitter'
+---
+
+asdfasd

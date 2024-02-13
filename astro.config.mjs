@@ -5,17 +5,23 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'MetricsJS',
+			logo: { src: './src/assets/metrics-js-logo.svg' },
+			customCss: ['./src/styles/theme.css'],
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/metrics-js/documentation',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Introduction',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
+						{ label: 'Getting started', link: '/introduction/getting-started/' },
+						{ label: 'Why MetricsJS', link: '/introduction/why-metrics-js/' },
 					],
+				},
+				{
+					label: 'Guides',
+					autogenerate: { directory: 'guides' },
 				},
 				{
 					label: 'Reference',
