@@ -1,5 +1,0 @@
----
-title: '@metrics/collectors'
----
-
-asdfasd
