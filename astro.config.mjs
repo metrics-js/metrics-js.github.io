@@ -9,7 +9,7 @@ export default defineConfig({
 			logo: { src: './src/assets/metrics-js-logo.svg' },
 			customCss: ['./src/styles/theme.css'],
 			social: {
-				github: 'https://github.com/metrics-js/documentation',
+				github: 'https://github.com/metrics-js/',
 			},
 			editLink: {
 				baseUrl: 'https://github.com/metrics-js/metrics-js.github.io/edit/main',
