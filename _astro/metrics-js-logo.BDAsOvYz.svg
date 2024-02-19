@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 630 630" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <g>
+  <rect id="background" width="630" height="630" style="fill:#f7df1e"/>
+  <g transform="matrix(.33827 0 0 .33827 265.77 245.58)">
+   <path d="m144.5 990h118.9v-253.7h-118.9zm198.2 0h118.9v-372.6h-118.9zm221.9 0h118.9v-467.8h-118.9zm214.1 0h118.9v-602.5h-118.9zm105.7-713.5 46.9-266.5-266.5 59.8 82.2 77.4-231.7 240.9-114.7-103-331.9 340.4 48.5 47.2-.1-.1 286.6-293.9 115.1 103.2 277.5-288.4z"/>
+  </g>
+ </g>
+</svg>
