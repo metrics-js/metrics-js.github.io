@@ -11,6 +11,10 @@ export default defineConfig({
 			social: {
 				github: 'https://github.com/metrics-js/documentation',
 			},
+			editLink: {
+				baseUrl: 'https://github.com/metrics-js/metrics-js.github.io/edit/main',
+				pattern: 'docs',
+			},
 			sidebar: [
 				{
 					label: 'Introduction',
