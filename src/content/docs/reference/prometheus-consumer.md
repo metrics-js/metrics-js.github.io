@@ -168,7 +168,7 @@ For apps using express, this would look like:
 ```js
 const { register } = require('prom-client');
 
-app.get('/_/metrics', (req, res) => {
+app.get('/metrics', (req, res) => {
     res.set('Content-Type', register.contentType).end(register.metrics());
 });
 ```

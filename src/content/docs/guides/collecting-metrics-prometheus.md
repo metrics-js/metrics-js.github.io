@@ -1,3 +1,0 @@
----
-title: Collecting to Prometheus
----

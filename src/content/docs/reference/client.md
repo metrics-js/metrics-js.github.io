@@ -432,7 +432,7 @@ The client supports 4 types of metric creation use cases.
 
 ## Examples
 
-### Creating and incrementing a counter
+### Counter
 
 ```js
 const counter = client.counter({
@@ -442,7 +442,7 @@ const counter = client.counter({
 counter.inc();
 ```
 
-### Creating and incrementing a gauge
+### Gauge
 
 ```js
 const gauge = client.gauge({
@@ -452,7 +452,7 @@ const gauge = client.gauge({
 gauge.set(10);
 ```
 
-### Creating and incrementing a summary
+### Summary
 
 ```js
 const summary = client.summary({
@@ -462,7 +462,7 @@ const summary = client.summary({
 summary.observe(0.123);
 ```
 
-### Creating and incrementing a summary using a timer
+### Summary using a timer
 
 ```js
 const summary = client.summary({
@@ -474,7 +474,7 @@ const end = summary.timer();
 end();
 ```
 
-### Creating and incrementing a histogram
+### Histogram
 
 ```js
 const histogram = client.histogram({
@@ -484,7 +484,7 @@ const histogram = client.histogram({
 histogram.observe(0.123);
 ```
 
-### Creating and incrementing a histogram using a timer
+### Histogram using a timer
 
 ```js
 const histogram = client.histogram({
@@ -496,7 +496,7 @@ const end = histogram.timer();
 end();
 ```
 
-## Composing metric streams
+### Composing metric streams
 
 One of the goals of `@metrics/client` is to allow any number of modules to produce their own metrics, not know about
 where they might be consumed.
@@ -545,7 +545,7 @@ module1.pipe(consumer);
 module2.pipe(consumer);
 ```
 
-## Metrics consumption
+### Metrics consumption
 
 In order to consume metrics produced by `@metrics/client` you just need to listen for data and use your favourite metrics client to convert our data format into something usable by your system of choice.
 
