@@ -4,14 +4,46 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-Module for collecting different process and system metrics providing them as a metric stream.
+This module collects different process and system metrics on a scheduled frequency. The module is
+a readable stream which each metrics is emitted on as an metric object on each schedule.
 
-In other words, for generating metrics about the process, not processing metrics.
+The stream of metrics can be piped into ex the [@metrics/client](https://github.com/metrics-js/client)
+or the [@metrics/emitter](https://github.com/metrics-js/emitter) for further distribution.
 
-## Installation
+Each metric is collected by a collector. Most collectors will provide metrics on each scheduled
+run or when the underlaying feature for generating the metric emits to build the metric out of,
+but some metrics will only run once due to its nature. Some metrics will not be collected on
+some operating systems. Please see [collectors](#collectors) for further detail.
+
+The internal scheduler is a defered interval which prevents kicking off the collection of a new
+set of metrics before any previous collection of metrics has finished. This prevents duplicate
+metrics and possible memory leaks if any of the async operations of collecting the metrics get
+stale for some weird reason.
+
+The scheduler is by default [unrefered](https://nodejs.org/en/docs/guides/timers-in-node/) so
+it will not hold up your Node.js process.
+
+
+## Usage
 
 ```bash
 npm install @metrics/process
+```
+
+Gathering metrics on the process.
+
+```js
+const Process = require('@metrics/process');
+const Client = require('@metrics/client');
+const Emitter = require('@metrics/emitter');
+
+const proc = new Process();
+const client = new Client();
+const emitter = new Emitter('udp', { port: 45000 });
+
+proc.pipe(client).pipe(emitter);
+
+proc.start();
 ```
 
 ## API
@@ -103,7 +135,7 @@ process.start();
 
 ## Collectors
 
-These are the following mertics collected by this module:
+These are the following metrics collected by this module:
 
 ### Version
 
@@ -273,7 +305,9 @@ the `.start()` method.
  * **collected on:** All operating systems
 
 
-## Example
+## Examples
+
+### Log the stream to the console
 
 ```js
 const stream = require('stream');
@@ -291,43 +325,3 @@ proc.pipe(new stream.Writable({
 
 proc.start();
 ```
-
-## Description
-
-This module collects different process and system metrics on a scheduled frequency. The module is
-a readable stream which each metrics is emitted on as an metric object on each schedule.
-
-The stream of metrics can be piped into ex the [@metrics/client](https://github.com/metrics-js/client)
-or the [@metrics/emitter](https://github.com/metrics-js/emitter) for further distribution.
-
-Example:
-
-```js
-const Process = require('@metrics/process');
-const Client = require('@metrics/client');
-const Emitter = require('@metrics/emitter');
-
-const proc = new Process();
-const client = new Client();
-const emitter = new Emitter('udp', { port: 45000 });
-
-proc.pipe(client).pipe(emitter);
-
-proc.start();
-```
-
-Each metric is collected by a collector. Most collectors will provide metrics on each scheduled
-run or when the underlaying feature for generating the metric emits to build the metric out of,
-but some metrics will only run once due to its nature. Some metrics will not be collected on
-some operating systems. Please see [collectors](#collectors) for further detail.
-
-### On not staying alive
-
-The internal scheduler is a defered interval which prevents kicking off the collection of a new
-set of metrics before any previous collection of metrics has finished. This prevents duplicate
-metrics and possible memory leaks if any of the async operations of collecting the metrics get
-stale for some weird reason.
-
-The scheduler is by default [unrefered](https://nodejs.org/en/docs/guides/timers-in-node/) so
-it will not hold up your node.js process.
-

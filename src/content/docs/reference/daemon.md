@@ -4,15 +4,20 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-Daemon for collecting metrics over a network. Provides a stream for further piping of metrics.
+This module makes it possible to create a socket you can recieve metrics over. The socket can
+be of different protocols (UDP, TCP etc) but the data trasmitted over it is expected to be of
+the [`@metrics/metric`](../metric) type. The recieved metrics can
+be piped to other metric modules for further handling.
 
-## Installation
+For sending metrics over a socket you are expected to use the [`@metrics/emitter`](../emitter) module.
+
+The main purpose of this is to be able to collect metrics from multiple processes.
+
+## Usage
 
 ```bash
-$ npm install @metrics/daemon
+npm install @metrics/daemon
 ```
-
-## Example
 
 Set up a daemon with UDP on port 6000 as transport and pipes the incomming metrics into the [`@metrics/client`](https://github.com/metrics-js/client):
 
@@ -28,18 +33,7 @@ daemon.pipe(client);
 daemon.listen();
 ```
 
-## Description
-
-This module makes it possible to create a socket one can recieve metrics over. The socket can
-be of different protocols (UDP, TCP etc) but the data trasmitted over it is expected to be of
-the [`@metrics/metric`](https://github.com/metrics-js/metric) type. The recieved metrics can
-be piped to other metric modules for further handling.
-
-For sending metrics over a socket one are expected to use the [`@metrics/emitter`](https://github.com/metrics-js/emitter) module.
-
-The main purpose of this is to be able to collect metrics from multiple processes. Here is a
-simplified example of each worker in a cluster pushing metrics to the master and the master
-pushing the metric further:
+Here is a simplified example of each worker in a cluster pushing metrics to the master and the master pushing the metric further:
 
 ```js
 const master = () => {
@@ -81,7 +75,10 @@ if (cluster.isWorker) {
 See the [cluster example](https://github.com/metrics-js/daemon/tree/master/example/cluster.js)
 in examples for a full example.
 
-## Constructor
+## API
+
+
+### constructor(options)
 
 Create a new Daemon instance.
 
@@ -90,26 +87,25 @@ const Daemon = require('@metrics/daemon');
 const daemon = new Daemon(transport, options);
 ```
 
-### transport (required)
+#### transport (required)
 
 What type of transport to use. Supported values are:
 
  * `udp` - For UDP transport.
 
-### options (optional)
+#### options (optional)
 
-An Object containing misc configuration for the selected transport. Please see each
-transport for which option which can be passed in.
+An Object containing misc configuration for the selected transport. Please see each transport for which option which can be passed in.
 
-### returns
+#### returns
 
 Returns a Readable stream in object mode.
 
-## API
-
 The Daemon instance has the following API:
 
-### .listen()
+### instance methods
+
+#### .listen()
 
 Starts the daemon with the selected transport.
 

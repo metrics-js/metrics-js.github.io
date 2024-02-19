@@ -4,29 +4,8 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-The metric class definition which metric objects is instansiated from.
+The metric class definition which metric objects is instansiated from. You'll likely not be using this directly, instead generating metrics with [`@metrics/client`](../client).
 
-## Installation
-
-```bash
-$ npm install @metrics/metric
-```
-
-## Example
-
-```js
-const Metric = require('@metrics/metric');
-
-const metric = new Metric({
-    name: 'unique_metric_name',
-    description: 'Description of metric being collected',
-    value: 10,
-});
-```
-
-## Description
-
-This module is the metric class definition which metric objects is instansiated from.
 
 All modules in the `@metric` family which exchange data over the `stream` API exchange
 this object type. This object definition is intended to be static over time so modules
@@ -40,7 +19,27 @@ when serialized to JSON.
 The metric object aims to be compatible with the [Open Metrics](https://github.com/OpenObservability/OpenMetrics)
 initiative.
 
-## Constructor
+## Usage
+
+```bash
+npm install @metrics/metric
+```
+
+Instantiating a new metric:
+
+```js
+const Metric = require('@metrics/metric');
+
+const metric = new Metric({
+    name: 'unique_metric_name',
+    description: 'Description of metric being collected',
+    value: 10,
+});
+```
+
+## API
+
+### constructor(options)
 
 Create a new Metric instance.
 
@@ -49,7 +48,7 @@ Create a new Metric instance.
  const metric = new Metric(options);
  ```
 
-### options (required)
+#### options (required)
 
 An object literal reflecting the properties of this class. The following properties
 is required:
@@ -59,11 +58,11 @@ is required:
 
 Each property value is validated and will throw if a property value is found to be invalid.
 
-## Properties
+### instance properties
 
 The instansiated object has the following properties:
 
-### name
+#### name
 
 The name of the metric.
 
@@ -71,7 +70,7 @@ The name of the metric.
  * Value is immutable.
  * Is required.
 
-### description
+#### description
 
 A human readable description of the metric.
 
@@ -79,7 +78,7 @@ A human readable description of the metric.
  * Value is immutable.
  * Is required.
 
-### value
+#### value
 
 The value of the metric.
 
@@ -87,7 +86,7 @@ The value of the metric.
  * Value is immutable.
  * Defaults to `null`.
 
-### type
+#### type
 
 A hint of what type of metric this is.
 
@@ -106,7 +105,7 @@ Each numeric value reflect one of the following types:
  * `6` represents `gauge histogram`.
  * `7` represents `summary`.
 
-### source
+#### source
 
 The source of the metric in terms of where it originated.
 
@@ -114,7 +113,7 @@ The source of the metric in terms of where it originated.
  * Value is mutable.
  * Defaults to `null`.
 
-### timestamp
+#### timestamp
 
 A timestamp of when the metric was created.
 
@@ -122,16 +121,16 @@ A timestamp of when the metric was created.
  * Value is immutable.
  * Defaults to `Date.now() / 1000`.
 
-### labels
+#### labels
 
 An `Array` of labeled values. Each item in the `Array` must be a
-`Label` object. Please see the Labels section for further info.
+[`Label`](#label) object.
 
- * Valid value: `Array` of `Label` objects.
+ * Valid value: `Array` of [`Label`](#label) objects.
  * Value is immutable.
  * Defaults to an empty `Array`.
 
-### meta
+#### meta
 
 Available to be used to hold any data. The input is not validated.
 
@@ -139,22 +138,22 @@ Available to be used to hold any data. The input is not validated.
  * Value is immutable.
  * Default to `null`.
 
-### time
+#### time
 
 Is deprecated.
 
-## Label object
+### Label
 
 A `Label` object is a object literal which have the following properties:
 
-### name
+#### name
 
 The name of the label.
 
  * Valid value: `String` in the range of `[a-zA-Z0-9_]`.
  * Is required.
 
-### value
+#### value
 
 The value of the label.
 

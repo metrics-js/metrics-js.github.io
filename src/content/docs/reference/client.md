@@ -9,6 +9,46 @@ A streaming metric producer. Allows producing counters, gauges, time series in a
 
 Additionally, you can pipe together different metrics streams before finally consuming them all in a single location.
 
+## Usage
+
+```bash
+npm install @metrics/client
+```
+
+First, instantiate a new client:
+
+```js
+const Metrics = require('@metrics/client');
+
+const client = new Metrics();
+```
+
+Next, use the client for instrumentation:
+
+```js
+const counter = client.counter({
+    name: 'unique_metric_name',
+    description: 'Description of metric being collected',
+});
+
+counter.inc();
+```
+
+The client supports 4 types of metric creation use cases.
+
+-   Counters are supported via the `client.counter` method
+-   Gauges are supported via the `client.gauge` method
+-   Histograms are supported via the `client.histogram` method
+-   Summaries are supported via the `client.summary` method
+
+
+Lastly, the metrics stream needs to be piped to a consumer:
+
+```js
+client.pipe(consumer);
+```
+
+If you're writing a library, you skip this step. Instead, expose the `client` so your users can pipe the metrics to their chosen `consumer`.
 
 ## API
 
@@ -387,48 +427,6 @@ client.on('drop', (metric) => {
     console.log('dropped metric', metric);
 });
 ```
-
-## Usage
-
-The client is intended to be used in the following way:
-
-### Step 1.
-
-Instantiate a new client
-
-```js
-const Metrics = require('@metrics/client');
-
-const client = new Metrics();
-```
-
-### Step 2.
-
-Use the client for instrumentation
-
-```js
-const counter = client.counter({
-    name: 'unique_metric_name',
-    description: 'Description of metric being collected',
-});
-
-counter.inc();
-```
-
-### Step 3.
-
-Pipe collected metrics to a collector
-
-```js
-client.pipe(consumer);
-```
-
-The client supports 4 types of metric creation use cases.
-
--   Counters are supported via the `client.counter` method
--   Gauges are supported via the `client.gauge` method
--   Histograms are supported via the `client.histogram` method
--   Summaries are supported via the `client.summary` method
 
 ## Examples
 

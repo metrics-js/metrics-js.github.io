@@ -6,7 +6,7 @@ editUrl: false
 lastUpdated: false
 hero:
   title: Streaming metrics for Node.js
-  tagline: Gather metrics from your dependency tree
+  tagline: Gather metrics from your dependency tree, without dependency hell.
   image:
     file: ../../assets/metrics-js-logo.png
   actions:

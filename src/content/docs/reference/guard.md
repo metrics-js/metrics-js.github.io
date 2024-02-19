@@ -4,50 +4,6 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-Module to guard against excessive metric permutation creation in a metric stream.
-
-
-## Installation
-
-```bash
-$ npm install @metrics/guard
-```
-
-## Example
-
-Guard a metric stream.
-
-```js
-const Collector = require('someMetricCollector');
-const Client = require('@metrics/client');
-const Guard = require('@metrics/guard');
-
-const collector = new Collector();
-const client = new Client();
-const guard = new Guard();
-
-guard.on('warn', (info) => {
-    console.log(`WARN: ${info} is creating a growing number of permutations`);
-});
-
-guard.on('drop', (metric) => {
-    console.log(`CRITICAL: ${metric.name} has created to many permutations. Metric is dropped.`);
-});
-
-client.pipe(guard).pipe(collector);
-
-const counter = client.counter({
-    name: 'my_counter',
-    description: 'Counter description',
-});
-
-for (let i = 0; i < 10000; i++) {
-    counter.inc({ labels: { index: i } });
-}
-```
-
-## Description
-
 Metrics, in general, should be created and curated with care to make sure one
 collects metrics which give value without causing system drainage. It is
 effortless to produce excessive amounts of metrics from an application, which
@@ -84,6 +40,43 @@ This module guards against excessive metric and permutation creation in a metric
 stream. If a mistake, such as the one above, is made, this module will guard
 against a bad metric filling up the metric stream.
 
+## Usage
+
+```bash
+npm install @metrics/guard
+```
+
+Guard a metric stream:
+
+```js
+const Collector = require('someMetricCollector');
+const Client = require('@metrics/client');
+const Guard = require('@metrics/guard');
+
+const collector = new Collector();
+const client = new Client();
+const guard = new Guard();
+
+guard.on('warn', (info) => {
+    console.log(`WARN: ${info} is creating a growing number of permutations`);
+});
+
+guard.on('drop', (metric) => {
+    console.log(`CRITICAL: ${metric.name} has created to many permutations. Metric is dropped.`);
+});
+
+client.pipe(guard).pipe(collector);
+
+const counter = client.counter({
+    name: 'my_counter',
+    description: 'Counter description',
+});
+
+for (let i = 0; i < 10000; i++) {
+    counter.inc({ labels: { index: i } });
+}
+```
+
 ### Permutation threshold
 
 Labels on a metric is the normal culprit to excessive metric permutation creation,
@@ -109,7 +102,9 @@ a `warn` event when a threshold of allowed unique metrics is exceeded.
 
 Metrics will not be dropped due to this.
 
-## Constructor
+## API
+
+### constructor(options)
 
 Create a new Guard instance.
 
@@ -118,7 +113,7 @@ const Guard = require('@metrics/guard');
 const guard = new Guard(options);
 ```
 
-### options (optional)
+#### options (optional)
 
 An Object containing misc configuration. The following values can be provided:
 
@@ -132,11 +127,11 @@ take all config parameters which the Transform Stream does.
 
 Please see the [documentation of Transform Streams](https://nodejs.org/api/stream.html#stream_duplex_and_transform_streams) for further documentation.
 
-## API
-
 The Guard instance have the following API:
 
-### .getMetrics()
+### instance methods
+
+#### .getMetrics()
 
 Get a list off the names of all the metrics which has been registered by the
 guard.
@@ -148,7 +143,7 @@ guard.getMetrics();
 
 Returns an `Array`.
 
-### .getLabels(name)
+#### .getLabels(name)
 
 Get a list off all the different labels on a metrics which has been registered
 by the guard.
@@ -164,7 +159,7 @@ This method take the following arguments:
 
 Returns an `Array` with label `Objects`.
 
-### .reset()
+#### .reset()
 
 Resets the guard. All collected info about the metric stream is dropped.
 

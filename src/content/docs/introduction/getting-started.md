@@ -2,23 +2,17 @@
 title: Getting started
 ---
 
+Metrics JS is an open source project for isolated instrumentation of independent modules. You can measure the things you feel are important, such as:
 
-
-MetricsJS consists of three main parts:
-
-1. A [client](../../reference/client/), which is the interface to produce metrics.
-2. A [guard](../../reference/guard/), which helps avoid excessive metric permutation creation in a stream.
-3. A [consumer](../../reference/prometheus-consumer/), which takes one or more metrics streams and sends data to a service such as Prometheus.
-
-The consumer and guard is something you typically set up once in the root of your application, while the client is used throughout your codebase.
-
-## Hello, MetricsJS
+- The time it takes to complete an operation.
+- The number of incoming requests.
+- The CPU load on the server.
 
 Let's go through an example where we produce and read some metrics.
 
-### Install dependencies
+## Install dependencies
 
-First, install the client, guard, and Prometheus client and consumer:
+First, install these packages:
 
 ```bash
 npm install @metrics/client \
@@ -27,7 +21,15 @@ npm install @metrics/client \
   prom-client
 ```
 
-### Generate metrics
+MetricsJS consists of three main parts:
+
+1. A [client](../../reference/client/), which is the interface to produce metrics.
+2. A [guard](../../reference/guard/), which helps avoid excessive metric permutation creation in a stream.
+3. A [consumer](../../reference/prometheus-consumer/), which takes one or more metrics streams and sends data to a service such as Prometheus.
+
+The consumer and guard is something you typically set up once in the root of your application, while the client is used throughout your codebase (or that of your dependencies).
+
+## Generate metrics
 
 The client supports 4 types of metric creation use cases:
 
@@ -53,7 +55,7 @@ counter.inc();
 
 See the [client reference](../../reference/client/) for API documentation and more examples.
 
-### Create a consumer
+## Create a consumer
 
 Create a Prometheus consumer singleton in the root of your application, and add a guard:
 
@@ -75,7 +77,7 @@ guard.on('drop', (metric) => {
 });
 ```
 
-### Pipe client data to the consumer
+## Pipe client data to the consumer
 
 MetricsJS works on streams, so you need to pipe the client data to the consumer:
 
@@ -96,9 +98,9 @@ Any number of streams can be piped to the consumer. In other words:
 
 See the [client reference](../../reference/client/#composing-metric-streams) for code examples.
 
-### Expose metrics
+## Read the metrics
 
-Finally, expose the metrics on an endpoint in your application for the Prometheus scraper:
+Finally, expose the metrics on an endpoint:
 
 ```js
 app.get('/metrics', (req, res) => {
@@ -107,3 +109,5 @@ app.get('/metrics', (req, res) => {
     );
 });
 ```
+
+This endpoint can be scraped by Prometheus.

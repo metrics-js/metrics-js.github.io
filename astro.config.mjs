@@ -16,7 +16,7 @@ export default defineConfig({
 					label: 'Introduction',
 					items: [
 						{ label: 'Getting started', link: '/introduction/getting-started/' },
-						{ label: 'Why MetricsJS', link: '/introduction/why-metrics-js/' },
+						{ label: 'Why MetricsJS', link: '/introduction/why-metricsjs/' },
 					],
 				},
 				{

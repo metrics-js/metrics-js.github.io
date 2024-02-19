@@ -2,15 +2,7 @@
 title: Why MetricsJS?
 ---
 
-Metrics JS is an open source project for isolated instrumentation of independent modules.
-
-With Metrics JS, it's possible to instrument a Node.js module, measuring the things you feel are important such as:
-
-- The time it takes to complete an operation.
-- The number of incoming requests.
-- The CPU load on the server.
-
-You can measure these things without needing to know which system the metrics will be collected into. It's up to the final consumer to decide whether the metrics will be pushed to [Prometheus](../../reference/prometheus-consumer/), Data Dog or something else.
+With Metrics JS, it's possible to instrument a Node.js module, measuring the things you feel are important such as operation timing or counts, without needing to know which system the metrics will be collected into. It's up to the final consumer to decide whether the metrics will be pushed to Prometheus, Data Dog or something else.
 
 ## Resilient design
 

@@ -4,15 +4,21 @@ tableOfContents:
   maxHeadingLevel: 4
 ---
 
-Emitter for sending metrics over a network to a [daemon](../daemon).
 
-## Installation
+This module makes it possible stream metrics over a socket to a daemon. The socket can
+be of different protocols (UDP, TCP etc) but the data trasmitted over it is expected to be of
+the [`@metrics/metric`](../metric) type.
+
+For recieving metrics over a socket one are expected to use the [`@metrics/daemon`](../daemon) module.
+
+The main purpose of this is to be able to send metrics from multiple processes to a sentral
+service (daemon) for further handling.
+
+## Usage
 
 ```bash
-$ npm install @metrics/emitter
+npm install @metrics/emitter
 ```
-
-## Example
 
 Set up an emitter which connects to a daemon on UDP on port 6000 and  pipes the metrics from the [`@metrics/client`](https://github.com/metrics-js/client):
 
@@ -26,16 +32,7 @@ const client = new Client();
 client.pipe(emitter);
 ```
 
-## Description
-
-This module makes it possible stream metrics over a socket to a daemon. The socket can
-be of different protocols (UDP, TCP etc) but the data trasmitted over it is expected to be of
-the [`@metrics/metric`](https://github.com/metrics-js/metric) type.
-
-For recieving metrics over a socket one are expected to use the [`@metrics/daemon`](https://github.com/metrics-js/daemon) module.
-
-The main purpose of this is to be able to send metrics from multiple processes to a sentral
-service (daemon) for further handling. Here is a simplified example of each worker in a
+Here is a simplified example of each worker in a
 cluster pushing metrics to the master and the master pushing the metric further:
 
 ```js
@@ -78,7 +75,9 @@ if (cluster.isWorker) {
 See the [cluster example](https://github.com/metrics-js/daemon/tree/master/example/cluster.js)
 in daemon for a full example.
 
-## Constructor
+## API
+
+### constructor(options)
 
 Create a new Emitter instance.
 
@@ -87,18 +86,18 @@ const Emitter = require('@metrics/emitter');
 const emitter = new Emitter(transport, options);
 ```
 
-### transport (required)
+#### transport (required)
 
 What type of transport to use. Supported values are:
 
  * `udp` - For UDP transport.
 
-### options (optional)
+#### options (optional)
 
 An Object containing misc configuration for the selected transport. Please see each
 transport for which option which can be passed in.
 
-### returns
+#### returns
 
 Returns a Writable stream in object mode.
 
