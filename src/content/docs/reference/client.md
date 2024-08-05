@@ -545,7 +545,7 @@ module2.pipe(consumer);
 
 ### Metrics consumption
 
-In order to consume metrics produced by `@metrics/client` you just need to listen for data and use your favourite metrics client to convert our data format into something usable by your system of choice.
+In order to consume metrics produced by `@metrics/client` you need to listen for data and use your favourite metrics client to convert our data format into something usable by your system of choice.
 
 _Example: Prometheus using prom-client_
 

@@ -77,6 +77,12 @@ guard.on('drop', (metric) => {
 });
 ```
 
+:::tip
+
+Not using Prometheus? You can [write your own metrics consumer](/reference/client/#metrics-consumption) to adapt the metrics to your preferred system.
+
+:::
+
 ## Pipe client data to the consumer
 
 MetricsJS works on streams, so you need to pipe the client data to the consumer:

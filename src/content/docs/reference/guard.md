@@ -95,7 +95,7 @@ action.
 
 ### Metrics threshold
 
-It also might be that an application is just reporting too many different metrics.
+It also might be that an application is reporting too many different metrics.
 
 This guard will also monitor the amount of unique metrics and will start emitting
 a `warn` event when a threshold of allowed unique metrics is exceeded.
