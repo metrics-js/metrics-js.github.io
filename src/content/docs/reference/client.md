@@ -1,9 +1,8 @@
 ---
-title: '@metrics/client'
+title: "@metrics/client"
 tableOfContents:
   maxHeadingLevel: 4
 ---
-
 
 A streaming metric producer. Allows producing counters, gauges, time series in a way that is independent of your metrics system so that you can produce metrics and let consumers decide how to consume them.
 
@@ -18,7 +17,7 @@ npm install @metrics/client
 First, instantiate a new client:
 
 ```js
-const Metrics = require('@metrics/client');
+const Metrics = require("@metrics/client");
 
 const client = new Metrics();
 ```
@@ -27,8 +26,8 @@ Next, use the client for instrumentation:
 
 ```js
 const counter = client.counter({
-    name: 'unique_metric_name',
-    description: 'Description of metric being collected',
+  name: "unique_metric_name",
+  description: "Description of metric being collected",
 });
 
 counter.inc();
@@ -36,11 +35,10 @@ counter.inc();
 
 The client supports 4 types of metric creation use cases.
 
--   Counters are supported via the `client.counter` method
--   Gauges are supported via the `client.gauge` method
--   Histograms are supported via the `client.histogram` method
--   Summaries are supported via the `client.summary` method
-
+- Counters are supported via the `client.counter` method
+- Gauges are supported via the `client.gauge` method
+- Histograms are supported via the `client.histogram` method
+- Summaries are supported via the `client.summary` method
 
 Lastly, the metrics stream needs to be piped to a consumer:
 
@@ -86,7 +84,7 @@ Creates an instance of a `Counter` class which can be used to populate the metri
 | ------------- | --------------------------------------------- | -------- | ------- | -------- |
 | `name`        | Metric name. valid characters: a-z,A-Z,0-9,\_ | `string` | null    | `true`   |
 | `description` | Metric description                            | `string` | null    | `true`   |
-| `labels`      | Available to be used to hold label data.      | `object` | null    | `false`  |
+| `labels`      | Allowed labels and their default values       | `object` | null    | `false`  |
 
 **return**: `Counter`
 
@@ -101,10 +99,10 @@ const counter = client.counter(options);
 
 Method that when called will populate the metrics stream with a counter increment.
 
-| name      | description                               | type      | default | required |
-| --------- | ----------------------------------------- | --------- | ------- | -------- |
-| `value`   | Value to increment the counter by         | `integer` | `1`     | `false`  |
-| `options` | Object that can be used to specify labels | `object`  | `{}`    | `false`  |
+| name      | description                       | type      | default | required |
+| --------- | --------------------------------- | --------- | ------- | -------- |
+| `value`   | Value to increment the counter by | `integer` | `1`     | `false`  |
+| `options` | Labels and their values           | `object`  | `{}`    | `false`  |
 
 _Example_
 
@@ -113,8 +111,8 @@ const counter = client.counter(options);
 
 counter.inc(); // increment by 1
 counter.inc(10); // increment by 10
-counter.inc({ labels: { url: 'http://finn.no' } }); // increment by 1, specify labels
-counter.inc(5, { labels: { url: 'http://finn.no' } }); // increment by 5, specify labels
+counter.inc({ labels: { url: "http://finn.no" } }); // increment by 1, specify labels
+counter.inc(5, { labels: { url: "http://finn.no" } }); // increment by 5, specify labels
 ```
 
 #### .gauge(options)
@@ -127,7 +125,7 @@ Creates an instance of a `Gauge` class which can be used to populate the metrics
 | ------------- | --------------------------------------------- | -------- | ------- | -------- |
 | `name`        | Metric name. valid characters: a-z,A-Z,0-9,\_ | `string` | null    | `true`   |
 | `description` | Metric description                            | `string` | null    | `true`   |
-| `labels`      | Available to be used to hold label data.      | `object` | null    | `false`  |
+| `labels`      | Allowed labels and their default values       | `object` | null    | `false`  |
 
 _Example_
 
@@ -140,10 +138,10 @@ const gauge = client.gauge(options);
 
 Method that when called will populate the metrics stream with a gauge value.
 
-| name      | description                               | type      | default | required |
-| --------- | ----------------------------------------- | --------- | ------- | -------- |
-| `value`   | Value to set the gauge to                 | `integer` | null    | `true`   |
-| `options` | Object that can be used to specify labels | `object`  | `{}`    | `false`  |
+| name      | description                             | type      | default | required |
+| --------- | --------------------------------------- | --------- | ------- | -------- |
+| `value`   | Value to set the gauge to               | `integer` | null    | `true`   |
+| `options` | Allowed labels and their default values | `object`  | `{}`    | `false`  |
 
 _Example_
 
@@ -151,7 +149,7 @@ _Example_
 const gauge = client.gauge(options);
 
 gauge.set(10); // set to 10
-gauge.set(5, { labels: { url: 'http://finn.no' } }); // set to 5, specify labels
+gauge.set(5, { labels: { url: "http://finn.no" } }); // set to 5, specify labels
 ```
 
 #### .histogram(options)
@@ -165,7 +163,7 @@ Creates an instance of a `Histogram` class which can be used to populate the met
 | `name`        | Metric name. valid characters: a-z,A-Z,0-9,\_ | `string`   | null    | `true`   |
 | `description` | Metric description                            | `string`   | null    | `true`   |
 | `buckets`     | Set custom buckets                            | `number[]` | null    | `false`  |
-| `labels`      | Available to be used to hold label data.      | `object`   | null    | `false`  |
+| `labels`      | Allowed labels and their default values       | `object`   | null    | `false`  |
 
 _Example_
 
@@ -178,10 +176,10 @@ const histogram = client.histogram(options);
 
 Method that when called will populate the metrics stream with a histogram value.
 
-| name      | description                                           | type      | default | required |
-| --------- | ----------------------------------------------------- | --------- | ------- | -------- |
-| `value`   | Value to set the gauge to                             | `integer` | null    | `true`   |
-| `options` | Object that can be used to specify labels and buckets | `object`  | `{}`    | `false`  |
+| name      | description                                          | type      | default | required |
+| --------- | ---------------------------------------------------- | --------- | ------- | -------- |
+| `value`   | Value to set the gauge to                            | `integer` | null    | `true`   |
+| `options` | Allowed labels and their default values, and buckets | `object`  | `{}`    | `false`  |
 
 _Example_
 
@@ -189,10 +187,10 @@ _Example_
 const histogram = client.histogram(options);
 
 histogram.observe(0.001); // observe value 0.001
-histogram.observe(5, { labels: { url: 'http://finn.no' } }); // observe value 5, specify labels
+histogram.observe(5, { labels: { url: "http://finn.no" } }); // observe value 5, specify labels
 histogram.observe(
-    0.01,
-    { buckets: [0.0001, 0.001, 0.01, 0.1, 0.5, 1, 10, 100] }, // observe 0.01, set buckets
+  0.01,
+  { buckets: [0.0001, 0.001, 0.01, 0.1, 0.5, 1, 10, 100] } // observe 0.01, set buckets
 );
 ```
 
@@ -200,9 +198,9 @@ histogram.observe(
 
 Method that when called will return an end function for use in measuring the time between 2 points
 
-| name      | description                                           | type     | default | required |
-| --------- | ----------------------------------------------------- | -------- | ------- | -------- |
-| `options` | Object that can be used to specify labels and buckets | `object` | `{}`    | `false`  |
+| name      | description                                          | type     | default | required |
+| --------- | ---------------------------------------------------- | -------- | ------- | -------- |
+| `options` | Allowed labels and their default values, and buckets | `object` | `{}`    | `false`  |
 
 _Examples_
 
@@ -215,7 +213,7 @@ end();
 ```
 
 ```js
-const end = histogram.timer({ labels: { url: 'http://finn.no' } }); // start timer, set labels
+const end = histogram.timer({ labels: { url: "http://finn.no" } }); // start timer, set labels
 // stuff happens
 end();
 ```
@@ -223,12 +221,12 @@ end();
 ```js
 const end = histogram.timer(); // start timer
 // stuff happens
-end({ labels: { url: 'http://finn.no' } }); // set labels in end function
+end({ labels: { url: "http://finn.no" } }); // set labels in end function
 ```
 
 ```js
 const end = histogram.timer({
-    buckets: [0.0001, 0.001, 0.01, 0.1, 0.5, 1, 10, 100],
+  buckets: [0.0001, 0.001, 0.01, 0.1, 0.5, 1, 10, 100],
 }); // start timer, set buckets
 // stuff happens
 end();
@@ -245,7 +243,7 @@ Creates an instance of a `Summary` class which can be used to populate the metri
 | `name`        | Metric name. valid characters: a-z,A-Z,0-9,\_ | `string`   | null    | `true`   |
 | `description` | Metric description                            | `string`   | null    | `true`   |
 | `quantiles`   | Set custom quantiles                          | `number[]` | null    | `false`  |
-| `labels`      | Available to be used to hold label data.      | `object`   | null    | `false`  |
+| `labels`      | Allowed labels and their default values       | `object`   | null    | `false`  |
 
 _Example_
 
@@ -258,10 +256,10 @@ const summary = client.summary(options);
 
 Method that when called will populate the metrics stream with a summary value.
 
-| name      | description                                             | type      | default | required |
-| --------- | ------------------------------------------------------- | --------- | ------- | -------- |
-| `value`   | Value to set the summary to                             | `integer` | null    | `true`   |
-| `options` | Object that can be used to specify labels and quantiles | `object`  | `{}`    | `false`  |
+| name      | description                                            | type      | default | required |
+| --------- | ------------------------------------------------------ | --------- | ------- | -------- |
+| `value`   | Value to set the summary to                            | `integer` | null    | `true`   |
+| `options` | Allowed labels and their default values, and quantiles | `object`  | `{}`    | `false`  |
 
 _Example_
 
@@ -269,10 +267,10 @@ _Example_
 const summary = client.summary(options);
 
 summary.observe(0.001); // observe value 0.001
-summary.observe(5, { labels: { url: 'http://finn.no' } }); // observe value 5, specify labels
+summary.observe(5, { labels: { url: "http://finn.no" } }); // observe value 5, specify labels
 summary.observe(
-    0.01,
-    { quantiles: [0.001, 0.01, 0.5, 0.9, 0.99] }, // observe 0.01, use meta to specify quantile meta
+  0.01,
+  { quantiles: [0.001, 0.01, 0.5, 0.9, 0.99] } // observe 0.01, use meta to specify quantile meta
 );
 ```
 
@@ -280,9 +278,9 @@ summary.observe(
 
 Method that when called will return an end function for use in measuring the time between 2 points
 
-| name      | description                                             | type     | default | required |
-| --------- | ------------------------------------------------------- | -------- | ------- | -------- |
-| `options` | Object that can be used to specify labels and quantiles | `object` | `{}`    | `false`  |
+| name      | description                                            | type     | default | required |
+| --------- | ------------------------------------------------------ | -------- | ------- | -------- |
+| `options` | Allowed labels and their default values, and quantiles | `object` | `{}`    | `false`  |
 
 _Examples_
 
@@ -295,7 +293,7 @@ end();
 ```
 
 ```js
-const end = summary.timer({ labels: { url: 'http://finn.no' } }); // start timer, set labels
+const end = summary.timer({ labels: { url: "http://finn.no" } }); // start timer, set labels
 // stuff happens
 end();
 ```
@@ -303,7 +301,7 @@ end();
 ```js
 const end = summary.timer(); // start timer
 // stuff happens
-end({ labels: { url: 'http://finn.no' } }); // set labels in end function
+end({ labels: { url: "http://finn.no" } }); // set labels in end function
 ```
 
 ```js
@@ -324,14 +322,14 @@ Collects a generic metric. As a minimum, a name and description for the metric m
 | `description` | Metric description                               | `string`         | null    | `true`   |
 | `value`       | Arbitrary value for the metric (used for gauges) | `string\|number` | null    | `false`  |
 | `meta`        | Available to be used to hold any misc data.      | `object`         | null    | `false`  |
-| `labels`      | Available to be used to hold label data.         | `array[object]`  | null    | `false`  |
+| `labels`      | Allowed labels and their default values          | `array[object]`  | null    | `false`  |
 
 **return**: `void`
 
 ```js
 client.metric({
-    name: '',
-    description: '',
+  name: "",
+  description: "",
 });
 ```
 
@@ -342,11 +340,11 @@ It should be an object of keys and values.
 
 ```js
 client.metric({
-    name: 'my_metric',
-    description: 'My HTTP timing metric',
-    meta: {
-        quantiles: [0.01, 0.1, 0.5, 0.9, 0.99],
-    },
+  name: "my_metric",
+  description: "My HTTP timing metric",
+  meta: {
+    quantiles: [0.01, 0.1, 0.5, 0.9, 0.99],
+  },
 });
 ```
 
@@ -360,12 +358,12 @@ The `name` property describes the labels name and the `value` property describes
 
 ```js
 client.metric({
-    name: 'my_metric',
-    description: 'My HTTP timing metric',
-    labels: [
-        { name: 'url', value: 'http://finn.no' },
-        { name: 'method', value: 'get' },
-    ],
+  name: "my_metric",
+  description: "My HTTP timing metric",
+  labels: [
+    { name: "url", value: "http://finn.no" },
+    { name: "method", value: "get" },
+  ],
 });
 ```
 
@@ -423,8 +421,8 @@ _Example_
 
 ```js
 const client = new Metrics();
-client.on('drop', (metric) => {
-    console.log('dropped metric', metric);
+client.on("drop", (metric) => {
+  console.log("dropped metric", metric);
 });
 ```
 
@@ -434,8 +432,8 @@ client.on('drop', (metric) => {
 
 ```js
 const counter = client.counter({
-    name: 'my_counter',
-    description: 'Counter description',
+  name: "my_counter",
+  description: "Counter description",
 });
 counter.inc();
 ```
@@ -444,8 +442,8 @@ counter.inc();
 
 ```js
 const gauge = client.gauge({
-    name: 'my_gauge',
-    description: 'Gauge description',
+  name: "my_gauge",
+  description: "Gauge description",
 });
 gauge.set(10);
 ```
@@ -454,8 +452,8 @@ gauge.set(10);
 
 ```js
 const summary = client.summary({
-    name: 'my_summary',
-    description: 'Summary description',
+  name: "my_summary",
+  description: "Summary description",
 });
 summary.observe(0.123);
 ```
@@ -464,8 +462,8 @@ summary.observe(0.123);
 
 ```js
 const summary = client.summary({
-    name: 'my_summary',
-    description: 'Summary description',
+  name: "my_summary",
+  description: "Summary description",
 });
 const end = summary.timer();
 // ... time something
@@ -476,8 +474,8 @@ end();
 
 ```js
 const histogram = client.histogram({
-    name: 'my_histogram',
-    description: 'Histogram description',
+  name: "my_histogram",
+  description: "Histogram description",
 });
 histogram.observe(0.123);
 ```
@@ -486,8 +484,8 @@ histogram.observe(0.123);
 
 ```js
 const histogram = client.histogram({
-    name: 'my_histogram',
-    description: 'Histogram description',
+  name: "my_histogram",
+  description: "Histogram description",
 });
 const end = histogram.timer();
 // ... time something
@@ -506,12 +504,12 @@ _Example_
 ```js
 // module-1
 
-const Metrics = require('@metrics/client');
+const Metrics = require("@metrics/client");
 const client = new Metrics();
 
 const counter = client.counter({
-    name: 'my_counter',
-    description: 'Counter description',
+  name: "my_counter",
+  description: "Counter description",
 });
 counter.inc();
 
@@ -521,12 +519,12 @@ module.exports.metrics = client;
 ```js
 // module-2
 
-const Metrics = require('@metrics/client');
+const Metrics = require("@metrics/client");
 const client = new Metrics();
 
 const counter = client.counter({
-    name: 'my_counter',
-    description: 'Counter description',
+  name: "my_counter",
+  description: "Counter description",
 });
 counter.inc();
 
@@ -535,9 +533,9 @@ module.exports.metrics = client;
 
 ```js
 // consuming module
-const module1 = require('module-1');
-const module2 = require('module-2');
-const consumer = require('some-consumer');
+const module1 = require("module-1");
+const module2 = require("module-2");
+const consumer = require("some-consumer");
 
 module1.pipe(consumer);
 module2.pipe(consumer);
@@ -550,35 +548,35 @@ In order to consume metrics produced by `@metrics/client` you need to listen for
 _Example: Prometheus using prom-client_
 
 ```js
-const { Counter } = require('prom-client');
-const { Writable } = require('stream');
+const { Counter } = require("prom-client");
+const { Writable } = require("stream");
 
 class Consumer extends Writable {
-    constructor() {
-        super({ objectMode: true });
+  constructor() {
+    super({ objectMode: true });
 
-        this.counter = new Counter({
-            name: 'my_metric_counter',
-            help: 'Counts http request type things',
-            labelNames: ['url', 'method'],
-        });
-    }
+    this.counter = new Counter({
+      name: "my_metric_counter",
+      help: "Counts http request type things",
+      labelNames: ["url", "method"],
+    });
+  }
 
-    _write(metric, enc, cb) {
-        let url;
-        let method;
+  _write(metric, enc, cb) {
+    let url;
+    let method;
 
-        metric.labels.forEach((obj) => {
-            if (obj.name === 'url') {
-                url = obj.value;
-            }
-            if (obj.name === 'method') {
-                method = obj.value;
-            }
-        });
+    metric.labels.forEach((obj) => {
+      if (obj.name === "url") {
+        url = obj.value;
+      }
+      if (obj.name === "method") {
+        method = obj.value;
+      }
+    });
 
-        this.counter.labels(url, method).inc(1);
-        cb();
-    }
+    this.counter.labels(url, method).inc(1);
+    cb();
+  }
 }
 ```
