@@ -150,7 +150,7 @@ A `Label` object is a object literal which have the following properties:
 
 The name of the label.
 
- * Valid value: `String` in the range of `[a-zA-Z0-9_]`.
+ * Valid value: `String` must be a valid [Open Observability MetricDescriptor](https://github.com/OpenObservability/OpenMetrics/blob/9a6db2a94dcf8dd84dd08a221e1b323e2b279f08/proto/openmetrics_data_model.proto#L42).
  * Is required.
 
 #### value
